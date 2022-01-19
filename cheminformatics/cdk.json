@@ -15,6 +15,15 @@
     ]
   },
   "context": {
+    "create_new_vpc": "True",
+    "existing_vpc_name": "SomeVpcName",
+    "cidr_block": "10.0.0.0/24",
+    "number_of_azs": 2,
+    "ec2_volume_size": 100,
+    "instance_type": "p3.2xlarge",
+    "cheminformatics_container": "public.ecr.aws/b9g4r0v3/cheminformatics_demo:0.1.2",
+    "megamolbart_container": "nvcr.io/nvidia/clara/megamolbart:0.1.2",
+    "megamolbart_model_url": "https://api.ngc.nvidia.com/v2/models/nvidia/clara/megamolbart/versions/0.1/zip",
     "@aws-cdk/aws-apigateway:usagePlanKeyOrderInsensitiveId": true,
     "@aws-cdk/core:stackRelativeExports": true,
     "@aws-cdk/aws-rds:lowercaseDbIdentifier": true,
