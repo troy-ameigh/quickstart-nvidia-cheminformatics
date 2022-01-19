@@ -5,13 +5,13 @@ from aws_cdk import (
     aws_autoscaling as autoscaling,
     aws_ecs_patterns as ecs_patterns,
     aws_logs as logs,
-    core,
+    Stack, RemovalPolicy, Duration
 )
+from constructs import Construct
 
-
-class CheminformaticsStack(core.Stack):
+class CheminformaticsStack(Stack):
     def __init__(
-        self, scope: core.Construct, construct_id: str, **kwargs
+        self, scope: Construct, construct_id: str, **kwargs
     ) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
@@ -102,7 +102,7 @@ class CheminformaticsStack(core.Stack):
             self,
             f"{self.identifier}-EFSFilesystem",
             vpc=self.vpc,
-            removal_policy=core.RemovalPolicy.DESTROY,
+            removal_policy=RemovalPolicy.DESTROY,
         )
 
         efs_volume_configuration = ecs.EfsVolumeConfiguration(
@@ -220,8 +220,8 @@ class CheminformaticsStack(core.Stack):
         auto_scaling.scale_on_cpu_utilization(
             "CPUScaling",
             target_utilization_percent=50,
-            scale_in_cooldown=core.Duration.seconds(60),
-            scale_out_cooldown=core.Duration.seconds(60),
+            scale_in_cooldown=Duration.seconds(60),
+            scale_out_cooldown=Duration.seconds(60),
         )
 
         self.efs_filesystem.connections.allow_from(
@@ -322,8 +322,8 @@ class CheminformaticsStack(core.Stack):
         auto_scaling.scale_on_cpu_utilization(
             "CPUScaling",
             target_utilization_percent=50,
-            scale_in_cooldown=core.Duration.seconds(60),
-            scale_out_cooldown=core.Duration.seconds(60),
+            scale_in_cooldown=Duration.seconds(60),
+            scale_out_cooldown=Duration.seconds(60),
         )
 
         self.cuchem = cuchem
