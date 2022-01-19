@@ -1,3 +1,7 @@
+"""
+A CDK Module that represents a reproducable cheminformatics-megamolbart deployment
+"""
+
 from aws_cdk import (
     aws_ec2 as ec2,
     aws_ecs as ecs,
@@ -13,11 +17,21 @@ from constructs import Construct
 
 
 class CheminformaticsStack(Stack):
+    """
+    Cheminformatics stack which deploys all the necessary resources
+    """
+
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
         self.identifier = "Cheminformatics"
         self.volume_name = "cheminformatics-data-volume"
+        self.vpc = None
+        self.cluster = None
+        self.auto_scaling_group = None
+        self.efs_filesystem = None
+        self.efs_volume_configuration = None
+        self.cuchem = None
         self.create_resources()
 
     def _create_vpc(self):
@@ -333,6 +347,9 @@ class CheminformaticsStack(Stack):
         )
 
     def create_resources(self):
+        """
+        Function that orchestrates the deployment
+        """
         self._create_vpc()
         self._create_ecs_cluster()
         self._create_gpu_capacity()
