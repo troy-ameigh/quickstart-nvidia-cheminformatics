@@ -5,14 +5,15 @@ from aws_cdk import (
     aws_autoscaling as autoscaling,
     aws_ecs_patterns as ecs_patterns,
     aws_logs as logs,
-    Stack, RemovalPolicy, Duration
+    Stack,
+    RemovalPolicy,
+    Duration,
 )
 from constructs import Construct
 
+
 class CheminformaticsStack(Stack):
-    def __init__(
-        self, scope: Construct, construct_id: str, **kwargs
-    ) -> None:
+    def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
         self.identifier = "Cheminformatics"
