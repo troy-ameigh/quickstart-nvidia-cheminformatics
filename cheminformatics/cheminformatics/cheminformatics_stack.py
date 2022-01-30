@@ -108,6 +108,9 @@ class CheminformaticsStack(Stack):
             auto_scaling_group=auto_scaling_group,
             enable_managed_termination_protection=False,
         )
+        auto_scaling_group.scale_on_cpu_utilization("KeepSpareCPU",
+            target_utilization_percent=60
+        )
         self.auto_scaling_group = auto_scaling_group
         self.cluster.add_asg_capacity_provider(capacity_provider)
 
