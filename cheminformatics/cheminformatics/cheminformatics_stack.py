@@ -220,7 +220,6 @@ class CheminformaticsStack(Stack):
             ],
             placement_strategies=[
                 ecs.PlacementStrategy.spread_across_instances(),
-                ecs.PlacementStrategy.packed_by_cpu(),
             ],
             cloud_map_options=ecs.CloudMapOptions(
                 name="megamolbart", container=container
