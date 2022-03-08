@@ -6,4 +6,4 @@
 .Dashboard for {partner-product-short-name} on AWS
 image::../docs/deployment_guide/images/cheminformatics_dashboard.png[Dashboard]
 
-//== Postdeployment steps
+== Postdeployment steps
