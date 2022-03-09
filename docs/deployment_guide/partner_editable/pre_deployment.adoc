@@ -1,3 +1,4 @@
+== Predeployment steps
 
 There is a json file for configuration where you can specify parameters:
 
@@ -34,5 +35,3 @@ You can also customize the following formation parameters:
 ** defaults to: "nvcr.io/nvidia/clara/megamolbart:0.1.2"
 * megamolbart_model_url
 ** defaults to: "https://api.ngc.nvidia.com/v2/models/nvidia/clara/megamolbart/versions/0.1/zip"
-
-== Predeployment steps
