@@ -6,6 +6,7 @@ from aws_cdk import (
     aws_ec2 as ec2,
     aws_ecs as ecs,
     aws_efs as efs,
+    aws_iam as iam,
     aws_autoscaling as autoscaling,
     aws_ecs_patterns as ecs_patterns,
     aws_logs as logs,
@@ -59,8 +60,12 @@ class CheminformaticsStack(Stack):
         # can share 1 gpu
         commands_user_data.add_commands(
             """
-            sed -i 's/^OPTIONS="/OPTIONS="--default-runtime nvidia /' /etc/sysconfig/docker && systemctl restart docker
-        """
+            sed -i 's/^OPTIONS="/OPTIONS="--default-runtime nvidia /' /etc/sysconfig/docker && systemctl restart docker && \
+            yum install python2-pip -y && \
+            pip install nvidia-ml-py boto3 && \
+            curl https://s3.amazonaws.com/aws-bigdata-blog/artifacts/GPUMonitoring/gpumon.py > gpumon.py && \
+            python gpumon.py & 
+            """
         )
 
         auto_scaling_group = autoscaling.AutoScalingGroup(
@@ -84,6 +89,19 @@ class CheminformaticsStack(Stack):
                     ),
                 ),
             ],
+        )
+
+        auto_scaling_group.role.attach_inline_policy(
+            iam.Policy(
+                self,
+                "cloudwatch-put",
+                statements=[
+                    iam.PolicyStatement(
+                        actions=["cloudwatch:PutMetricData"],
+                        resources=["*"]
+                    )
+                ]
+            )
         )
 
         capacity_provider = ecs.AsgCapacityProvider(
