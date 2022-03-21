@@ -1,9 +1,7 @@
-//Include any postdeployment steps here, such as steps necessary to test that the deployment was successful. If there are no postdeployment steps leave this file empty.
+== Postdeployment steps
 
 * After the services are deployed, there would be a URL in the CFN outputs.
 * With that URL, https://github.com/NVIDIA/cheminformatics/blob/master/tutorial/Tutorial.md[NVidia's tutorial] could be followed.
 
 .Dashboard for {partner-product-short-name} on AWS
 image::../docs/deployment_guide/images/cheminformatics_dashboard.png[Dashboard]
-
-//== Postdeployment steps

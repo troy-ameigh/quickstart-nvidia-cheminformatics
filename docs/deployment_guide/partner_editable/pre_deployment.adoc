@@ -1,3 +1,37 @@
-//Include any predeployment steps here, such as signing up for a Marketplace AMI or making any changes to a Partner account. If there are none leave this file empty.
-
 == Predeployment steps
+
+There is a json file for configuration where you can specify parameters:
+
+[source,json]
+----
+{
+    "create_new_vpc": "True",
+    "existing_vpc_name": "SomeVpcName",
+    "cidr_block": "10.0.0.0/24",
+    "number_of_azs": 2,
+    "ec2_volume_size": 100,
+    "instance_type": "p3.2xlarge",
+    "cheminformatics_container": "public.ecr.aws/b9g4r0v3/cheminformatics_demo:0.1.2",
+    "megamolbart_container": "nvcr.io/nvidia/clara/megamolbart:0.1.2",
+    "megamolbart_model_url": "https://api.ngc.nvidia.com/v2/models/nvidia/clara/megamolbart/versions/0.1/zip"
+}
+----
+
+* If you want to deploy cheminformatics to an existing vpc:
+
+** Set create_new_vpc to "False"
+** Specify the eixting_vpc_name parameter
+* If you want a vpc to be created:
+** Set create_new_vpc to "True"
+** existing_vpc_name in this case is ignored
+** Specify the cidr_block for your vpc
+** Specify number of AZs for your vpc
+* Set ec2_volume_size in GBs according to your needs
+* Set instance_type (note the app requires Tesla cards so currently on p3 instances can be selected)
+You can also customize the following formation parameters:
+* cheminformatics_container
+** defaults to: "public.ecr.aws/b9g4r0v3/cheminformatics_demo:0.1.2"
+* megamolbart_container
+** defaults to: "nvcr.io/nvidia/clara/megamolbart:0.1.2"
+* megamolbart_model_url
+** defaults to: "https://api.ngc.nvidia.com/v2/models/nvidia/clara/megamolbart/versions/0.1/zip"
