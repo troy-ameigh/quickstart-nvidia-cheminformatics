@@ -6,6 +6,8 @@ from aws_cdk import (
     aws_ec2 as ec2,
     aws_ecs as ecs,
     aws_efs as efs,
+    aws_iam as iam,
+    aws_cloudwatch as cloudwatch,
     aws_autoscaling as autoscaling,
     aws_ecs_patterns as ecs_patterns,
     aws_logs as logs,
@@ -52,6 +54,21 @@ class CheminformaticsStack(Stack):
                 vpc_name=self.node.try_get_context("existing_vpc_name"),
             )
 
+    def _create_ecs_cluster(self):
+        cluster = ecs.Cluster(
+            self,
+            f"{self.identifier}-Cluster",
+            vpc=self.vpc,
+            container_insights=True,
+        )
+
+        # Namespace is added for container to container communication
+        # aka service discovery
+        cluster.add_default_cloud_map_namespace(
+            name="service.local",
+        )
+        self.cluster = cluster
+
     def _create_gpu_capacity(self):
         commands_user_data = ec2.UserData.for_linux()
 
@@ -59,8 +76,12 @@ class CheminformaticsStack(Stack):
         # can share 1 gpu
         commands_user_data.add_commands(
             """
-            sed -i 's/^OPTIONS="/OPTIONS="--default-runtime nvidia /' /etc/sysconfig/docker && systemctl restart docker
-        """
+            sed -i 's/^OPTIONS="/OPTIONS="--default-runtime nvidia /' /etc/sysconfig/docker && systemctl restart docker && \
+            yum install python2-pip -y && \
+            pip install nvidia-ml-py boto3 && \
+            curl https://s3.amazonaws.com/aws-bigdata-blog/artifacts/GPUMonitoring/gpumon.py > gpumon.py && \
+            python gpumon.py & 
+            """
         )
 
         auto_scaling_group = autoscaling.AutoScalingGroup(
@@ -85,32 +106,41 @@ class CheminformaticsStack(Stack):
                 ),
             ],
         )
+        autoscaling.StepScalingPolicy(
+            self,
+            "StepScalingPolicy",
+            auto_scaling_group=auto_scaling_group,
+            metric=self.cluster.metric_cpu_utilization(),
+            scaling_steps=[
+                autoscaling.ScalingInterval(upper=15, change=-1), 
+                autoscaling.ScalingInterval(lower=30, change=+1), 
+                autoscaling.ScalingInterval(lower=50, change=+1)
+            ],
+            adjustment_type=autoscaling.AdjustmentType.CHANGE_IN_CAPACITY     
+        )
+
+        auto_scaling_group.role.attach_inline_policy(
+            iam.Policy(
+                self,
+                "cloudwatch-put",
+                statements=[
+                    iam.PolicyStatement(
+                        actions=["cloudwatch:PutMetricData"],
+                        resources=["*"]
+                    )
+                ]
+            )
+        )
 
         capacity_provider = ecs.AsgCapacityProvider(
             self,
             f"{self.identifier}-GPU-AsgCapacityProvider",
             auto_scaling_group=auto_scaling_group,
             enable_managed_termination_protection=False,
+            enable_managed_scaling=False
         )
 
-        self.capacity_provider = capacity_provider
- 
-    def _create_ecs_cluster(self):
-        cluster = ecs.Cluster(
-            self,
-            f"{self.identifier}-Cluster",
-            vpc=self.vpc,
-            container_insights=True,
-        )
-
-        # Namespace is added for container to container communication
-        # aka service discovery
-        cluster.add_default_cloud_map_namespace(
-            name="service.local",
-        )
-        cluster.add_asg_capacity_provider(self.capacity_provider)
-
-        self.cluster = cluster
+        self.cluster.add_asg_capacity_provider(capacity_provider)
 
     def _create_efs_volume(self):
 
@@ -229,12 +259,12 @@ class CheminformaticsStack(Stack):
         )
         
         auto_scaling = megamolbart.auto_scale_task_count(
-            min_capacity=1, max_capacity=4
+            min_capacity=1, max_capacity=10
         )
 
         auto_scaling.scale_on_cpu_utilization(
             "CPUScaling",
-            target_utilization_percent=50,
+            target_utilization_percent=30,
             scale_in_cooldown=Duration.seconds(60),
             scale_out_cooldown=Duration.seconds(60),
         )
@@ -331,12 +361,12 @@ class CheminformaticsStack(Stack):
         )
 
         auto_scaling = cuchem.service.auto_scale_task_count(
-            min_capacity=1, max_capacity=4
+            min_capacity=1, max_capacity=10
         )
 
         auto_scaling.scale_on_cpu_utilization(
             "CPUScaling",
-            target_utilization_percent=50,
+            target_utilization_percent=30,
             scale_in_cooldown=Duration.seconds(60),
             scale_out_cooldown=Duration.seconds(60),
         )
@@ -351,8 +381,8 @@ class CheminformaticsStack(Stack):
         Function that orchestrates the deployment
         """
         self._create_vpc()
-        self._create_gpu_capacity()
         self._create_ecs_cluster()
+        self._create_gpu_capacity()
         self._create_efs_volume()
         self._create_cuchem_service()
         self._create_megamolbart_service()
