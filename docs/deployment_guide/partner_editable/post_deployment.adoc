@@ -1,9 +1,7 @@
+== Post-deployment steps
 // Include any postdeployment steps here, such as steps necessary to test that the deployment was successful. If there are no postdeployment steps, leave this file empty.
 
-== Postdeployment steps
+After deployment, navigate to the *Outputs* section in your CloudFormation dashboard and find the URL. Use this URL to follow the https://github.com/NVIDIA/cheminformatics/blob/master/tutorial/Tutorial.md[NVidia's tutorial^].
 
-* After the services are deployed, there would be a URL in the CFN outputs.
-* With that URL, https://github.com/NVIDIA/cheminformatics/blob/master/tutorial/Tutorial.md[NVidia's tutorial] could be followed.
-
-.Dashboard for {partner-product-short-name} on AWS
+.{partner-product-short-name} dashboard
 image::../docs/deployment_guide/images/cheminformatics_dashboard.png[Dashboard]
