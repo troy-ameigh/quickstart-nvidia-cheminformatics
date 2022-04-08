@@ -3,12 +3,12 @@
 :partner-product-name: NVidia Cheminformatics
 :partner-product-short-name: Cheminformatics
 :partner-company-name: NVIDIA INC.
-:doc-month: March
+:doc-month: April
 :doc-year: 2022
 :partner-contributors: John Smith, {partner-company-name}
 // :other-contributors: Akua Mansa, Trek10
-:aws-contributors: Doruk Ozturk, AWS WWCS Team
-:aws-ia-contributors: Troy Ameigh, AWS Integration & Automation team
+:aws-contributors: Doruk Ozturk, AWS World Wide Commercial Sector (WWCS) team
+:aws-ia-contributors: Troy Ameigh, AWS Integration and Automation team
 :deployment_time: 25 minutes
 :default_deployment_region: us-east-1
 // :private_repo:
