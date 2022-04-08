@@ -1,6 +1,38 @@
+
+==== Prepare for the AWS CDK deployment
+
+To deploy this stack, you must install Node.js, Python, and AWS CDK.
+Setting your environment variables
+
+AWS CDK requires the AWS_PROFILE variable and --profile parameter:
+
+    export AWS_PROFILE=myProfile
+
+
 == Pre-deployment steps
 
-Edit the following parameters in the the JSON configuration file, which is located in the https://github.com/aws-quickstart/quickstart-nvidia-cheminformatics/blob/main/cheminformatics/cdk.json[GitHub repo^]. After you edit the file and merge your updates....
+. Ensure that you have the AWS CDK toolkit installed:
+
+    npm install -g aws-cdk
+
+. Verify the installation and check the current version:
+
+    cdk --version
+
+Use AWS CDK to deploy this Quick Start. For more information, refer to Working with the AWS CDK.
+
+AWS CDK provides familiar programming tools and syntax to define infrastructure as code and to provision it through AWS CloudFormation.
+
+. Install the application’s dependencies:
+
+    pip install -r requirements.txt
+
+. Deploy the resources defined in the my-stack-dev stack:
+
+    git clone {git_repo_url}
+    cd {quickstart-project-name}
+
+. Edit the following parameters in the the JSON configuration file, which is located in the https://github.com/aws-quickstart/quickstart-nvidia-cheminformatics/blob/main/cheminformatics/cdk.json[GitHub repo^]. After you edit the file and merge your updates....
 
 [source,json]
 ----
@@ -17,21 +49,33 @@ Edit the following parameters in the the JSON configuration file, which is locat
 }
 ----
 
-To deploy {partner-product-short-name} to an existing virtual private cloud (VPC): 
+     ** To deploy {partner-product-short-name} to an existing virtual private cloud (VPC):
 
-* Set `create_new_vpc` to *False*."
-* Set the `existing_vpc_name` parameter to the name of your VPC.
+        * Set `create_new_vpc` to *False*."
+        * Set the `existing_vpc_name` parameter to the name of your VPC.
 
-To create a new VPC during deployment: 
-* Set `create_new_vpc` to *True*. The `existing_vpc_name` is ignored.
-* Specify the `cidr_block` for your VPC.
-* Specify the number of availability zones (AZs) for your VPC.
+     ** To create a new VPC during deployment:
+        * Set `create_new_vpc` to *True*. The `existing_vpc_name` is ignored.
+        * Specify the `cidr_block` for your VPC.
+        * Specify the number of availability zones (AZs) for your VPC.
 
-Configure the following parameters:
-* Set `ec2_volume_size` to a value in GBs.
-* Set the `instance_type` parameter. Note that it currently accepts only p3 instances. 
+     ** Configure the following parameters:
+        * Set `ec2_volume_size` to a value in GBs.
+        * Set the `instance_type` parameter. Note that it currently accepts only p3 instances.
 
-You can also customize the following AWS CloudFormation parameters:
-* `cheminformatics_container` (default value is *public.ecr.aws/b9g4r0v3/cheminformatics_demo:0.1.2)
-* `megamolbart_container` (default value is *nvcr.io/nvidia/clara/megamolbart:0.1.2)
-* `megamolbart_model_url` (default value is *https://api.ngc.nvidia.com/v2/models/nvidia/clara/megamolbart/versions/0.1/zip)
+     ** You can also customize the following AWS CloudFormation parameters:
+        * `cheminformatics_container` (default value is *public.ecr.aws/b9g4r0v3/cheminformatics_demo:0.1.2)
+        * `megamolbart_container` (default value is *nvcr.io/nvidia/clara/megamolbart:0.1.2)
+        * `megamolbart_model_url` (default value is *https://api.ngc.nvidia.com/v2/models/nvidia/clara/megamolbart/versions/0.1/zip)
+
+
+=== Launch the Quick Start
+
+. Deploy the AWS CDK Toolkit stack. For more information, refer to Bootstrapping:
+
+    cdk bootstrap
+
+. Deploy the AWS CDK stack:
+
+    cdk deploy
+
