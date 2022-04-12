@@ -1,17 +1,18 @@
+== Pre-deployment steps
+
+Use AWS Cloud Development Kit (AWS CDK) to deploy this Quick Start. AWS CDK provides familiar programming tools and syntax to define and provision infrastructure as code through AWS CloudFormation.
+
+For more information, refer to https://docs.aws.amazon.com/cdk/v2/guide/work-with.html[Working with the AWS CDK^].
 
 ==== Prepare for the AWS CDK deployment
 
-To deploy this stack, you must install Node.js, Python, and AWS CDK.
-Setting your environment variables
-
-AWS CDK requires the AWS_PROFILE variable and --profile parameter:
+To deploy this stack, install Node.js and Python. Then run the following command to set the AWS_PROFILE variable and --profile parameter:
 
     export AWS_PROFILE=myProfile
 
+==== Install the AWS CDK Toolkit
 
-== Pre-deployment steps
-
-. Ensure that you have the AWS CDK toolkit installed:
+. Install the AWS CDK Toolkit:
 
     npm install -g aws-cdk
 
@@ -19,20 +20,16 @@ AWS CDK requires the AWS_PROFILE variable and --profile parameter:
 
     cdk --version
 
-Use AWS CDK to deploy this Quick Start. For more information, refer to Working with the AWS CDK.
-
-AWS CDK provides familiar programming tools and syntax to define infrastructure as code and to provision it through AWS CloudFormation.
-
 . Install the application’s dependencies:
 
     pip install -r requirements.txt
 
-. Deploy the resources defined in the my-stack-dev stack:
+. Deploy the resources defined in the *my-stack-dev* stack:
 
     git clone {git_repo_url}
     cd {quickstart-project-name}
 
-. Edit the following parameters in the the JSON configuration file, which is located in the https://github.com/aws-quickstart/quickstart-nvidia-cheminformatics/blob/main/cheminformatics/cdk.json[GitHub repo^]. After you edit the file and merge your updates....
+. Edit the following parameters in the the JSON configuration file, which is located in the https://github.com/aws-quickstart/quickstart-nvidia-cheminformatics/blob/main/cheminformatics/cdk.json[GitHub repo^]. After you edit the file. do what?
 
 [source,json]
 ----
@@ -68,10 +65,9 @@ AWS CDK provides familiar programming tools and syntax to define infrastructure 
         * `megamolbart_container` (default value is *nvcr.io/nvidia/clara/megamolbart:0.1.2)
         * `megamolbart_model_url` (default value is *https://api.ngc.nvidia.com/v2/models/nvidia/clara/megamolbart/versions/0.1/zip)
 
+== Launch the Quick Start
 
-=== Launch the Quick Start
-
-. Deploy the AWS CDK Toolkit stack. For more information, refer to Bootstrapping:
+. Deploy the AWS CDK Toolkit stack. For more information, refer to https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html#getting_started_bootstrap[Bootstrapping^]:
 
     cdk bootstrap
 
