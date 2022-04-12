@@ -22,7 +22,7 @@ internet access for resources in the private subnets.
 ** Cheminformatics and Megamolbart services and Amazon Elastic Container Service (Amazon ECS) tasks.
 * An Application Load Balancer to load balance the traffic.
 * An Amazon ECS cluster to run the tasks.
-* A Amazon Cloud Map namespace for service discovery.
+* An Amazon Cloud Map namespace for service discovery.
 * Amazon ECS CloudWatch Container Insights for metrics and logging.
 * An Amazon Elastic File System (Amazon EFS) file system to share data between tasks.
 
