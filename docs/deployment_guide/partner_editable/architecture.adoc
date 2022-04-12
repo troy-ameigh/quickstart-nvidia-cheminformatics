@@ -8,23 +8,22 @@ AWS Cloud.
 
 [#architecture1]
 .Quick Start architecture for {partner-product-short-name} on AWS
-image::../docs/deployment_guide/images/architecture_diagram.png[Architecture]
+image::../docs/deployment_guide/images/nvidia-architecture-diagram.png[Architecture]
 
 As shown in <<architecture1>>, the Quick Start sets up the following:
 
-* A highly available architecture that spans specified number of (defaults to 2) Availability Zones.*
-* A VPC configured with public and private subnets, according to AWS
+* A highly available architecture that spans multiple Availability Zones (defaults to two).* A VPC configured with public and private subnets, according to AWS
 best practices, to provide you with your own virtual network on AWS.*
 * In the public subnets:
 ** Managed network address translation (NAT) gateways to allow outbound
 internet access for resources in the private subnets.
 * In the private subnets:
-** An autoscaling group with GPU instances (defaults to p3.2xlarge).
-** Cheminformatics and Megamolbart services and ECS tasks.
-* An ECS Cluster to run the tasks.
-* An ALB to load balance the traffic.
-* A CloudMap namespace for service discovery.
-* An EFS file system to share data between tasks.
-* CloudWatch Container Insights for metrics and logging.
+** An Auto Scaling group with GPU instances (defaults to p3.2xlarge).
+** Cheminformatics and Megamolbart services and Amazon Elastic Container Service (Amazon ECS) tasks.
+* An Application Load Balancer to load balance the traffic.
+* An Amazon ECS cluster to run the tasks.
+* A Amazon Cloud Map namespace for service discovery.
+* Amazon ECS CloudWatch Container Insights for metrics and logging.
+* An Amazon Elastic File System (Amazon EFS) file system to share data between tasks.
 
 [.small]#* The template that deploys the Quick Start into an existing VPC skips the components marked by asterisks and prompts you for your existing VPC configuration.#
