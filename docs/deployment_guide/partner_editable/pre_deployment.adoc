@@ -20,16 +20,18 @@ To deploy this stack, install Node.js and Python. Then run the following command
 
     cdk --version
 
-. Install the application’s dependencies:
-
-    pip install -r requirements.txt
-
-. Deploy the resources defined in the *my-stack-dev* stack:
+. Pull code to your machine. 
 
     git clone {git_repo_url}
     cd {quickstart-project-name}
 
-. Edit the following parameters in the the JSON configuration file, which is located in the https://github.com/aws-quickstart/quickstart-nvidia-cheminformatics/blob/main/cheminformatics/cdk.json[GitHub repo^]. After you edit the file. do what?
+. Install the application’s dependencies:
+
+    pip install -r requirements.txt
+
+. In your cloned copy of the repo, edit the parameters in the cheminformatics/cdk.json configuration file. A sample of the file is shown here. 
+
+Sample
 
 [source,json]
 ----
