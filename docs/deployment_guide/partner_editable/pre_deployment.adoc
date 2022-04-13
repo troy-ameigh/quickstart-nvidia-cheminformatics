@@ -29,9 +29,7 @@ To deploy this stack, install Node.js and Python. Then run the following command
 
     pip install -r requirements.txt
 
-. In your cloned copy of the repo, edit the parameters in the cheminformatics/cdk.json configuration file. A sample of the file is shown here. 
-
-Sample
+. In your cloned copy of the repo, edit the parameters in the cheminformatics/cdk.json configuration file. A sample of the file is shown here: 
 
 [source,json]
 ----
