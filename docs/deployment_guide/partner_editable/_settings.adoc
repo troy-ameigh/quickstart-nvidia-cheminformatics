@@ -1,6 +1,6 @@
 :quickstart-project-name: quickstart-nvidia-cheminformatics
 :quickstart-github-org: aws-quickstart
-:partner-product-name: NVidia Cheminformatics
+:partner-product-name: NVIDIA Cheminformatics
 :partner-product-short-name: Cheminformatics
 :partner-company-name: NVIDIA INC.
 :doc-month: April
