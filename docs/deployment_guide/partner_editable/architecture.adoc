@@ -19,7 +19,7 @@ best practices, to provide you with your own virtual network on AWS.*
 internet access for resources in the private subnets.
 * In the private subnets:
 ** An Auto Scaling group with GPU instances (defaults to p3.2xlarge).
-** Cheminformatics and Megamolbart services and Amazon Elastic Container Service (Amazon ECS) tasks.
+** Cheminformatics and MegaMolBART services and Amazon Elastic Container Service (Amazon ECS) tasks.
 * An Application Load Balancer to load balance the traffic.
 * An Amazon ECS cluster to run the tasks.
 * An Amazon Cloud Map namespace for service discovery.
