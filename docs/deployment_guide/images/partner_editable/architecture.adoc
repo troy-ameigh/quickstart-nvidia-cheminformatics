@@ -1,0 +1,29 @@
+:xrefstyle: short
+
+Deploying this Quick Start for a new virtual private cloud (VPC) with
+default parameters builds the following {partner-product-short-name} environment in the
+AWS Cloud.
+
+// Replace this example diagram with your own. Follow our wiki guidelines: https://w.amazon.com/bin/view/AWS_Quick_Starts/Process_for_PSAs/#HPrepareyourarchitecturediagram. Upload your source PowerPoint file to the GitHub {deployment name}/docs/images/ directory in this repo.
+
+[#architecture1]
+.Quick Start architecture for {partner-product-short-name} on AWS
+image::../docs/deployment_guide/images/nvidia-chem-architecture-diagram.png[Architecture]
+
+As shown in <<architecture1>>, the Quick Start sets up the following:
+
+* A highly available architecture that spans multiple Availability Zones (defaults to two).* A VPC configured with public and private subnets, according to AWS
+best practices, to provide you with your own virtual network on AWS.*
+* In the public subnets:
+** Managed network address translation (NAT) gateways to allow outbound
+internet access for resources in the private subnets.
+* In the private subnets:
+** An Auto Scaling group with GPU instances (defaults to p3.2xlarge).
+** Cheminformatics and Megamolbart services and Amazon Elastic Container Service (Amazon ECS) tasks.
+* An Application Load Balancer to load balance the traffic.
+* An Amazon ECS cluster to run the tasks.
+* An Amazon Cloud Map namespace for service discovery.
+* Amazon ECS CloudWatch Container Insights for metrics and logging.
+* An Amazon Elastic File System (Amazon EFS) file system to share data between tasks.
+
+[.small]#* The template that deploys the Quick Start into an existing VPC skips the components marked by asterisks and prompts you for your existing VPC configuration.#
