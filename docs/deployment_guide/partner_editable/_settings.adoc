@@ -2,7 +2,7 @@
 :quickstart-github-org: aws-quickstart
 :partner-product-name: NVIDIA Cheminformatics
 :partner-product-short-name: Cheminformatics
-:partner-company-name: NVIDIA INC.
+:partner-company-name: NVIDIA Corporation
 :doc-month: April
 :doc-year: 2022
 :partner-contributors: John Smith, {partner-company-name}
