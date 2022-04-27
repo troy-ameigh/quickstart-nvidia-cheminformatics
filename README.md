@@ -1,5 +1,5 @@
 
-## quickstart-nvidia-cheminformatics—Quick Start
+## NVIDIA Cheminformatics on AWS—Quick Start
 
 For architectural details, step-by-step instructions, and customization options, see the [deployment guide](https://aws-quickstart.github.io/quickstart-nvidia-cheminformatics/).
 
