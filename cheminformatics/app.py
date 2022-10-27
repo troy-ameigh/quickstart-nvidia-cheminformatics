@@ -3,11 +3,11 @@ import os
 
 import aws_cdk as cdk
 
-from cheminformatics.cheminformatics_stack import CheminformaticsStack
+from cheminformatics.megamolbart_stack import MegamolbartStack
 
 
 app = cdk.App()
-CheminformaticsStack(app, "CheminformaticsStack",
+MegamolbartStack(app, "MegamolbartStack",
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,
     # but a single synthesized template can be deployed anywhere.
@@ -16,7 +16,7 @@ CheminformaticsStack(app, "CheminformaticsStack",
     # and Region that are implied by the current CLI configuration.
 
     env=cdk.Environment(account=os.getenv('CDK_DEFAULT_ACCOUNT'), region=os.getenv('CDK_DEFAULT_REGION')),
-    description="Quick Start for Nvidia Cheminformatics (qs-1t085hb88)"
+    description="Quick Start for Nvidia Megamolbart (qs-1t085hb88)"
     # Uncomment the next line if you know exactly what Account and Region you
     # want to deploy the stack to. */
 
