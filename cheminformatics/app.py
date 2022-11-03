@@ -15,7 +15,7 @@ CheminformaticsStack(app, "CheminformaticsStack",
     # Uncomment the next line to specialize this stack for the AWS Account
     # and Region that are implied by the current CLI configuration.
 
-    env=cdk.Environment(account=os.getenv('CDK_DEFAULT_ACCOUNT'), region=os.getenv('CDK_DEFAULT_REGION'), description="Quick Start for Nvidia Cheminformatics (qs-1t085hb88)")
+    env=cdk.Environment(account=os.getenv('CDK_DEFAULT_ACCOUNT'), region=os.getenv('CDK_DEFAULT_REGION'), description="Partner Solutions for Nvidia Cheminformatics (qs-1t085hb88)")
 
     # Uncomment the next line if you know exactly what Account and Region you
     # want to deploy the stack to. */
